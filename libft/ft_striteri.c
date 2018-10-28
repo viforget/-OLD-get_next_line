@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viforget <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/28 01:37:54 by viforget          #+#    #+#             */
-/*   Updated: 2018/10/28 02:42:03 by viforget         ###   ########.fr       */
+/*   Created: 2018/10/09 22:19:53 by viforget          #+#    #+#             */
+/*   Updated: 2018/10/12 08:01:27 by viforget         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-#define BUFF_SIZE 32
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
+{
+	unsigned int i;
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include "libft/libft.h"
-
-int		get_next_line(const int fd, char **line);
-
-#endif
+	i = 0;
+	if (s == NULL || f == NULL)
+		return ;
+	while (*s != '\0')
+	{
+		f(i, s);
+		s++;
+		i++;
+	}
+}

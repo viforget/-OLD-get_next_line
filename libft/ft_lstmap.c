@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: viforget <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/28 01:37:54 by viforget          #+#    #+#             */
-/*   Updated: 2018/10/28 02:42:03 by viforget         ###   ########.fr       */
+/*   Created: 2018/10/19 23:14:16 by viforget          #+#    #+#             */
+/*   Updated: 2018/10/19 23:44:06 by viforget         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-#define BUFF_SIZE 32
+t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+{
+	t_list	*maillon_un;
+	t_list	*liste;
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-
-#include "libft/libft.h"
-
-int		get_next_line(const int fd, char **line);
-
-#endif
+	if (!lst || !f)
+		return (NULL);
+	maillon_un = f(lst);
+	liste = maillon_un;
+	while (lst->next)
+	{
+		lst = lst->next;
+		if (!(liste->next = f(lst)))
+		{
+			return (NULL);
+		}
+		liste = liste->next;
+	}
+	return (maillon_un);
+}
