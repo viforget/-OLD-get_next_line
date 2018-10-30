@@ -1,7 +1,7 @@
 Première loi:
 	Un robot ne peut porter atteinte a un etre humain ni, restant passif, laisser cet etre humain expose au danger.
 Deuxieme loi:
-	Un robot doit obeir aux ordres donnes par les etres humains, sauf si de tels ordres sont en contradiction avec la premiere loi.
+Un robot doit obeir aux ordres donnes par les etres humains, sauf si de tels ordres sont en contradiction avec la premiere loi.
 Troisieme loi:
 
 Un robot doit proteger son existence dans la mesure ou cette protection n'est pas en contradiction avec la premiere ou la deuxieme loi.

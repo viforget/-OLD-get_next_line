@@ -6,7 +6,7 @@
 #    By: viforget <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/10/15 20:55:26 by viforget          #+#    #+#              #
-#    Updated: 2018/10/25 17:49:22 by viforget         ###   ########.fr        #
+#    Updated: 2018/10/30 16:29:50 by viforget         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRC = ft_atoi.c\
 	ft_sqrt.c\
 	ft_swap.c\
 	ft_puttab.c\
+	ft_strnjoin.c\
 
 OBJ = ft_atoi.o\
 	ft_memcmp.o\
@@ -139,6 +140,7 @@ OBJ = ft_atoi.o\
 	ft_sqrt.o\
 	ft_swap.o\
 	ft_puttab.o\
+	ft_strnjoin.o
 
 all : $(NAME)
 
