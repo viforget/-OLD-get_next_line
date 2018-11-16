@@ -6,7 +6,7 @@
 /*   By: viforget <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 23:01:17 by viforget          #+#    #+#             */
-/*   Updated: 2018/11/16 01:08:52 by viforget         ###   ########.fr       */
+/*   Updated: 2018/11/16 20:12:11 by viforget         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				get_next_line(const int fd, char **line)
 	*line = lin;
 	if (rd < 0)
 		return (-1);
-	if (rd == 0)
+	if (rd == 0 && **line == '\0')
 		return (0);
 	return (1);
 }
@@ -72,18 +72,20 @@ int	main(int ac, char **argv)
 	int b;
 	int c = ft_atoi(argv[1]);
 	b = 1;
-	a = open("txt.txt", O_RDONLY);
+	a = open("txt2.txt", O_RDONLY);
 	while (c--)
 	{
 		b = get_next_line(a, &str);
-		printf("%s\n", str);
+		ft_putnbr(b);
+    //printf("%s\n", str);
 		free(str);
 	}
-	
+  return (0);
+/\*	
 	char str[] = "Hey sal";
 	ft_putstr(str);
 	ft_strcut(&str, 4);
 	ft_putstr(str);
-	
-}
-*/
+*\/
+}*/
+
