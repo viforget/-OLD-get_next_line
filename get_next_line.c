@@ -5,118 +5,85 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: viforget <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/28 01:35:11 by viforget          #+#    #+#             */
-/*   Updated: 2018/10/28 17:41:24 by viforget         ###   ########.fr       */
+/*   Created: 2018/11/08 23:01:17 by viforget          #+#    #+#             */
+/*   Updated: 2018/11/16 01:08:52 by viforget         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
-static	char	*ft_strnjoin(char const *s1, char const *s2, size_t n)
+static	char	*ft_strcut(char (*str)[BUFF_SIZE], int n)
 {
-	int	i;
-	int	i2;
-	char*str;
-	int	len;
-
+	int i;
+	
+	if (n == 0)
+		return (*str);
 	i = 0;
-	i2 = 0;
-	if (!s1 || !s2)
-		return (NULL);
-	len = ft_strlen(s1) + ft_strlen(s2);
-	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (s1[i] != '\0')
+	while((*str)[n + i])
 	{
-		str[i2] = s1[i];
+		(*str)[i] = (*str)[i + n];
 		i++;
-		i2++;
 	}
-	i = 0;
-	while (s2[i] != '\0' && i < n)
-		str[i2++] = s2[i++];
-	str[i2] = '\0';
-	return (str);
+	(*str)[i] = '\0';
+	return (*str);
 }
 
-void	ft_shift(char *s, int n)
+static	int		strlenb(char *str)
 {
-	while (s[n])
-	{
-		s[n] = s[n + 1];
-		n++;
-	}
-}
-
-static	size_t		fnd_n(char *str, size_t n)
-{
-	size_t	i;
+	int i;
 
 	i = 0;
-	while (n > 0 && str[i] != '\0')
-		{
-			if (str[i] == '\n')
-				n--;
-			i++;
-		}
+	while (str[i] && str[i] != '\n')
+		i++;
 	return (i);
 }
 
-static	int			ft_min(int a, int b)
+int				get_next_line(const int fd, char **line)
 {
-	if (a < b)
-		return (a);
-	else
-		return (b);
-}
+	static	char	buf[BUFF_SIZE];
+	int				rd;
+	char			*lin;
 
-int					get_next_line(const int fd, char **line)
-{
-	static	int		nb = BUFF_SIZE;
-	static	char	cstr[BUFF_SIZE + 1];
-	char			*str;
-	int				check;
-	int				fndn;
-
-	check = 1;
-	fndn = fnd_n(cstr, 1);
-	str = ft_strsub(cstr, fndn, fnd_n(cstr, 2) - fndn);
-	while (nb == BUFF_SIZE && check)
+	lin = ft_strnew(0);
+	rd = BUFF_SIZE;
+	ft_strcut(&buf, strlenb(buf) + 1);
+	lin = ft_strnjoin(lin, buf, strlenb(buf));
+	while(strlenb(buf) == (int)ft_strlen(buf) && rd == BUFF_SIZE)
 	{
-		ft_bzero(cstr, BUFF_SIZE + 1);
-		nb = read(fd, cstr, BUFF_SIZE);
-		cstr[nb + 1] = '\0';
-		if (ft_strchr(cstr, '\n'))
-		{
-			check = 0;
-		}
-		str = ft_strnjoin(str, cstr, fnd_n(cstr, 1));
+		ft_bzero(buf, BUFF_SIZE);
+		rd = read(fd, buf, BUFF_SIZE);
+		if (rd > 0)
+			lin = ft_strnjoin(lin, buf, strlenb(buf));
 	}
-	str[ft_strlen(str) - 1] = '\0';
-	*line = str;
-	if (cstr[fnd_n(cstr, 1)] == '\n')
-		ft_shift(cstr, fnd_n(cstr, 1));
-	if (nb > 0)
-		return (1);
-	else if (nb == 0)
-		return (0);
-	else
+	*line = lin;
+	if (rd < 0)
 		return (-1);
+	if (rd == 0)
+		return (0);
+	return (1);
 }
 
 /*
-**int		main()
-**{
-**	char *str;
-**	int a;
-**	int b;
-**	b = 1;
-**	a = open("txt.txt", O_RDONLY);
-**	while (b)
-**	{
-**		b = get_next_line(a, &str);
-**		printf("%s\n", str);
-**	}
-**}
+#include <stdio.h>
+int	main(int ac, char **argv)
+{
+	char *str;
+	int a;
+	int b;
+	int c = ft_atoi(argv[1]);
+	b = 1;
+	a = open("txt.txt", O_RDONLY);
+	while (c--)
+	{
+		b = get_next_line(a, &str);
+		printf("%s\n", str);
+		free(str);
+	}
+	
+	char str[] = "Hey sal";
+	ft_putstr(str);
+	ft_strcut(&str, 4);
+	ft_putstr(str);
+	
+}
 */
