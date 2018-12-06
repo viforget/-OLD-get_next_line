@@ -6,13 +6,11 @@
 /*   By: viforget <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 23:01:17 by viforget          #+#    #+#             */
-/*   Updated: 2018/11/27 14:59:10 by viforget         ###   ########.fr       */
+/*   Updated: 2018/12/06 16:50:05 by viforget         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#include "libft.h"
 
 static	char	*ft_strnjoindel(char *s1, char const *s2, size_t n)
 {
